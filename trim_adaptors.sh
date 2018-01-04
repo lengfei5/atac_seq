@@ -2,7 +2,7 @@
 ## this script is to trim the adaptors for atac-seq (paired_end fastq files) in the same way as Daugherty et al. and Buenrostro et al. 
 ## because here we used the modified code from the original paper by Buenrostro JD
 ###############
-nb_cores=6
+nb_cores=10
 cwd=`pwd`
 trim_adaptor="/home/imp/jingkui.wang/scripts/atac_seq/pyadapter_trim.py"
 
