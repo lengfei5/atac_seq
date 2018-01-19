@@ -1,8 +1,8 @@
 ###############
-### this script is to trim the adaptors for atac-seq (paired_end fastq files) in the same way as Daugherty et al. and Buenrostro et al. 
+## this script is to trim the adaptors for atac-seq (paired_end fastq files) in the same way as Daugherty et al. and Buenrostro et al. 
 # because here we used the modified code from the original paper by Buenrostro JD
-### updated new version : after asking Elin, we use the cutadapt using the adatpor sequence
- 
+
+## updated new version : after asking Elin, we use the cutadapt using the adatpor sequence
 ###############
 nb_cores=8
 cwd=`pwd`
