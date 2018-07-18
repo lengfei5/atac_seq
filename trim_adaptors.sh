@@ -1,8 +1,7 @@
 ###############
-## this script is to trim the adaptors for atac-seq (paired_end fastq files) in the same way as Daugherty et al. and Buenrostro et al. 
+# this script is to trim the adaptors for atac-seq (paired_end fastq files) in the same way as Daugherty et al. and Buenrostro et al. 
 # because here we used the modified code from the original paper by Buenrostro JD
-
-## updated new version : after asking Elin, we use the cutadapt using the adatpor sequence
+# updated new version : after asking Elin, we use the cutadapt using the adatpor sequence
 ###############
 nb_cores=8
 cwd=`pwd`
@@ -10,16 +9,15 @@ trim_adaptor="/home/imp/jingkui.wang/scripts/atac_seq/pyadapter_trim.py"
 
 DIR_input="${cwd}/ngs_raw/FASTQs_toTrimmed"
 DIR_trimmed="${cwd}/ngs_raw/FASTQs"
-#echo $DIR_input
-#echo $DIR_trimmed
+
+params_min_length=5 # should be at least 5bp left after trim
+params_overlap=1 #1bp overlapping the adaptor is enough 
+## those are the adopters for atac-seq data (I guess it should be the same but double check)
+params_A="CTGTCTCTTATACACATCTGACGCTGCCGACGA" # first pair
+params_a="CTGTCTCTTATACACATCTCCGAGCCCACGAGAC" # second pair
 
 mkdir -p "${cwd}/logs"
 mkdir -p $DIR_trimmed
-
-params_min_length=5 ## should be at least 5 bp left after trim
-params_overlap=1 ## one bp overlapping the adaptor is enough 
-params_A="CTGTCTCTTATACACATCTGACGCTGCCGACGA" ## those are the adopters we have… guess it should be the same for you but double check
-params_a="CTGTCTCTTATACACATCTCCGAGCCCACGAGAC"
 
 #for file in ${DIR_input}/*.fastq;
 cd $DIR_input;
