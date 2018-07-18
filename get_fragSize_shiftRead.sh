@@ -6,8 +6,9 @@ nb_cores=6
 cwd=`pwd`
 Genome="/groups/bell/jiwang/Genomes/C_elegans/ce11/ce11_sequence/ce11.chrom.sizes"
 
-DIR_Input="${cwd}/alignments/BAMs_unique_rmdup"
+DIR_Input="${cwd}/alignments/BAMs_All"
 DIR_fragSize="${cwd}/QCs/fragSize_distribution"
+
 DIR_shift="${cwd}/alignments/BAMs_unique_rmdup_shift"
 DIR_logs="${DIR_fragSize}/logs"
 
