@@ -7,14 +7,17 @@ nb_cores=8
 cwd=`pwd`
 trim_adaptor="/home/imp/jingkui.wang/scripts/atac_seq/pyadapter_trim.py"
 
-DIR_input="${cwd}/ngs_raw/FASTQs_toTrimmed"
+DIR_input="${cwd}/ngs_raw/FASTQs_toTrim"
 DIR_trimmed="${cwd}/ngs_raw/FASTQs"
+
+## those are the adopters for atac-seq data (I guess it should be the same but double check)
+#params_a="CTGTCTCTTATACACATCTCCGAGCCCACGAGAC" # forward pair
+#params_A="CTGTCTCTTATACACATCTGACGCTGCCGACGA" # reverse pair
+params_A="GATCGGAAGAGCACACGTCTGAACTCCAGTCAC";
+params_a=$params_A;
 
 params_min_length=5 # should be at least 5bp left after trim
 params_overlap=1 #1bp overlapping the adaptor is enough 
-## those are the adopters for atac-seq data (I guess it should be the same but double check)
-params_A="CTGTCTCTTATACACATCTGACGCTGCCGACGA" # first pair
-params_a="CTGTCTCTTATACACATCTCCGAGCCCACGAGAC" # second pair
 
 mkdir -p "${cwd}/logs"
 mkdir -p $DIR_trimmed
@@ -32,7 +35,7 @@ do
 module load python; \
 module load cutadapt/1.12.0; \
 cutadapt --minimum-length ${params_min_length} --overlap ${params_overlap} -a ${params_a} -A ${params_A} \
--o ${file}_R1.trim.fastq -p ${file}_R2.trim.fastq ${file}_R1.fastq ${file}_R2.fastq > ${cwd}/${file}.cutadapt.log; \
+-o ${file}_R1.trim.fastq -p ${file}_R2.trim.fastq ${file}_R1.fastq ${file}_R2.fastq > ${cwd}/logs/${file}.cutadapt.log; \
 mv ${file}_R1.trim.fastq $DIR_trimmed; mv ${file}_R2.trim.fastq $DIR_trimmed; "
 
 done
