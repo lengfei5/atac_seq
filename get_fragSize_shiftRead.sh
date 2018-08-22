@@ -1,6 +1,7 @@
 ###############
-# this script is to calculate fragment size distribution by PICARD
-# 
+# This script is to: 
+# 1) calculate fragment size distribution by PICARD
+# 2) shift the atac-seq PE reads by 4bp and 5bp 
 ###############
 nb_cores=6
 cwd=`pwd`
@@ -17,7 +18,7 @@ mkdir -p $DIR_fragSize
 mkdir -p $DIR_shift
 mkdir -p $DIR_logs
 
-#cd $DIR_input;
+# cd $DIR_input;
 for file in ${DIR_Input}/*.bam
 do
     echo $file
