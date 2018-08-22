@@ -11,10 +11,10 @@ DIR_input="${cwd}/ngs_raw/FASTQs_toTrim"
 DIR_trimmed="${cwd}/ngs_raw/FASTQs"
 
 ## those are the adopters for atac-seq data (I guess it should be the same but double check)
-#params_a="CTGTCTCTTATACACATCTCCGAGCCCACGAGAC" # forward pair
-#params_A="CTGTCTCTTATACACATCTGACGCTGCCGACGA" # reverse pair
-params_A="GATCGGAAGAGCACACGTCTGAACTCCAGTCAC";
-params_a=$params_A;
+params_a="CTGTCTCTTATACACATCTCCGAGCCCACGAGAC" # forward pair
+params_A="CTGTCTCTTATACACATCTGACGCTGCCGACGA" # reverse pair
+#params_A="GATCGGAAGAGCACACGTCTGAACTCCAGTCAC";
+#params_a=$params_A;
 
 params_min_length=5 # should be at least 5bp left after trim
 params_overlap=1 #1bp overlapping the adaptor is enough 
