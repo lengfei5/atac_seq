@@ -6,3 +6,5 @@ In addition, this folder includes only ATAC-seq specific steps:
 
 Other steps are found in either ../ngs_tools if they are general steps for common NGS data
 or in ../ChiPseq if they are shared with chipseq data
+
+# motif analysis scripts were added in the folder
