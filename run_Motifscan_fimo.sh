@@ -1,14 +1,29 @@
 ########
-##### this script is to scan motifs using fimo
+# this script is to scan motifs using fimo
 ########
+while getopts ":hs:p:b:O" opts; do
+    case "$opts" in 
+	"h")
+	    ;;
+	"s")
+	    ;;
+	"p")
+	    ;;
+	"O")
+	    ;;
+	"?")
+	    ;;
+	":")
+	    ;;
+    esac
+
+done
+
 cwd="/groups/cochella/jiwang/Projects/Paula/motif_analysis_miRpromoter";
 nb_cores=2;
 pval=0.001;
 OUT=${cwd}/fimo_out/mir_1/FIMO_OUT_bg_m2_p_3
 sequence="${cwd}/seqFasta/mir1_promoter_blocks.fa"
-
-#mkdir -p ${OUT}
-#mkdir -p 
 
 bg="${cwd}/seqFasta/backgrounds/background_ce_m2.bg"
 pwms="/groups/cochella/jiwang/Databases/motifs_TFs/PWMs_C_elegans/All_PWMs_JASPAR_CORE_2016_TRANSFAC_2015_CIS_BP_2015.meme"
