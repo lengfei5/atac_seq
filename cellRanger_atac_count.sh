@@ -43,19 +43,20 @@ mkdir -p $DIR_logs
 script=$DIR_logs/${jobName}_${id}.sh
 
 cat <<EOF > $script
-#!/usr/bin/bash	
+#!/usr/bin/bash
 
-#SBATCH --cpus-per-task=5
-#SBATCH --time=480
-#SBATCH --mem=20000
-#SBATCH --ntasks=1
-#SBATCH --nodes=1
+#SBATCH --export=ALL	
+#SBATCH --qos=medium
+#SBATCH --time=2-00:00:00
+#SBATCH --mem=32G
+#SBATCH --ntasks=1 --cpus-per-task=12
+
 #SBATCH -o $DIR_logs/${id}.out
 #SBATCH -e $DIR_logs/${id}.err
 #SBATCH --job-name $jobName
 
 module load cellranger-atac/1.2.0
-cellranger-atac count --id=$id --fastqs=$fastqs --sample=$sample --reference=$reference 
+cellranger-atac count --id=$id --fastqs=$fastqs --sample=$sample --reference=$reference --jobmode=local --localcores=12 --localmem=28
 
 EOF
 
