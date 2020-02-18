@@ -43,16 +43,21 @@ mkdir -p $DIR_logs
 # creat the script for each sample
 script=$DIR_logs/${jobName}_${id}.sh
 
+################
+# After testing, high memory 500G and 120G works both well
+# 
+################
 ncpus=30
 
+localmemory=`echo $memory * 0.9|bc`
 cat <<EOF > $script
 #!/usr/bin/bash
 
 #SBATCH --export=ALL	
 #SBATCH --qos=medium
 #SBATCH --time=2-00:00:00
-#SBATCH --partition=c
-#SBATCH --mem=120G
+#SBATCH --partition=m
+#SBATCH --mem=500G
 #SBATCH --ntasks=1 --cpus-per-task=$ncpus
 
 #SBATCH -o $DIR_logs/${id}.out
@@ -60,11 +65,11 @@ cat <<EOF > $script
 #SBATCH --job-name $jobName
 
 module load cellranger-atac/1.2.0
-cellranger-atac count --id=$id --fastqs=$fastqs --sample=$sample --reference=$reference --jobmode=local --localcores=$ncpus --localmem=115
+cellranger-atac count --id=$id --fastqs=$fastqs --sample=$sample --reference=$reference --jobmode=local --localcores=$ncpus --localmem=450
 
 EOF
 
 cat $script
 
-sbatch $script
+#sbatch $script
 	    
