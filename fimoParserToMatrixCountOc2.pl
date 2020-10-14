@@ -9,7 +9,7 @@ use IO::Handle;
 $\="\n";
 $,="\t";
 
-$fimo=""; 
+$fimo="";
 
 GetOptions(
 	"fimo=s"		=> \$fimo,
@@ -21,25 +21,24 @@ my %found;
 open(FIMO, $fimo) || die "cannot open fimo output file";
 while(<FIMO>)
 {
-	#my $n = $fp->input_line_number();
-	#print $n, "\n";
-	#print $.;
-	#next if $.==1;
-	next if/^#/;
-	chomp;
-	my @line = split(/\t/);
-	#print @line, "\n";
-	my $motif = $line[0];
-	my $region = $line[1];
-	$hash{$motif}{$region}++;	
-	$found{$region}++;
+    #my $n = $fp->input_line_number();
+    #print $n, "\n";
+    #print $.;
+    #next if $.==1;
+    next if/^#/;
+    chomp;
+    my @line = split(/\t/);
+    #print @line, "\n";
+    my $motif = $line[0];
+    my $region = $line[1];
+    $hash{$motif}{$region}++;	
+    $found{$region}++;
 }
-#print Dumper(%hash);
 
+#print Dumper(%hash);
 my @sets = sort keys %found;
 #print "test";
 #print q{NAME};
-
 #print join(q{ }, q{NAME}, @sets), qq{\n};
 print join(q{ }, q{NAME}, @sets);
 foreach my $k (sort keys %hash) {
