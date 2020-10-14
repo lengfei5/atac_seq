@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 ## usage:
-# perl fimoParserToMatrixCountOc2.pl‎ -fimo name_file > output_file
+# perl fimoParserToMatrixCountOc2.pl -fimo name_file > output_file
 use Getopt::Long;
 use FileHandle;
 use Data::Dumper;
