@@ -41,8 +41,8 @@ do
 #!/usr/bin/bash
 
 #SBATCH --cpus-per-task=1
-#SBATCH --time=120
-#SBATCH --mem=8000
+#SBATCH --time=180
+#SBATCH --mem=16G
 #SBATCH --ntasks=1
 #SBATCH --nodes=1
 #SBATCH -o $DIR/logs/$fname.out
@@ -61,7 +61,8 @@ EOF
 
     cat $script;
     sbatch $script
-
+    break;
+    
 done
 
 cd $DIR;
