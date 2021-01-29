@@ -10,7 +10,6 @@ trim_adaptor="~/scripts/atac_seq/pyadapter_trim.py"
 ## those are the adopters for atac-seq data (I guess it should be the same but double check)
 params_a="CTGTCTCTTATACACATCTCCGAGCCCACGAGAC" # forward pair
 params_A="CTGTCTCTTATACACATCTGACGCTGCCGACGA" # reverse pair
-#params_A="GATCGGAAGAGCACACGTCTGAACTCCAGTCAC";
 #params_a=$params_A;
 
 # parameters
