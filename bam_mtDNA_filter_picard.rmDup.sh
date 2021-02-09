@@ -53,8 +53,8 @@ jobName='bam.filtering'
 #picardPath=$EBROOTPICARD
 #echo $picardPath
 
-#for file in ${DIR_input}/*.bam
-for file in ${DIR_input}/Embryo_Stage44_distal_93323.bam
+for file in ${DIR_input}/*.bam
+#for file in ${DIR_input}/Embryo_Stage44_distal_93323.bam
 do
     echo $file
     ff="$(basename $file)"
@@ -110,6 +110,7 @@ fi;
 if [ ! -e $newbb.bam.bai ]; then
    samtools sort -@ $nb_cores -o ${newbb}.bam ${newbb}.unsorted.bam
    samtools index -c -m 14 $newbb.bam;
+   rm ${newbb}.unsorted.bam
 fi;
 
 echo 'done duplication removal...'

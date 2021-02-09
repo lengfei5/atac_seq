@@ -2,20 +2,20 @@
 # this script is to downsample a bam file 
 # make BigWig files using container-based deeptools 
 #############################
-
-bam=${PWD}/alignments/BAMs_uniq_rmdup/Mature_Hand_74940_uniq_rmdup.bam
-
 nb_cores=16
 
 jobName='downsampling'
 dir_logs=${PWD}/logs
 
-OUT="${PWD}/saturation"
+OUT="${PWD}/saturation/bams"
+dir_bam="$PWD/alignments/BAMs_uniq_rmdup"
 
 mkdir -p $OUT
 mkdir -p $dir_logs
 
-for frac in 0.05 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 
+
+
+for frac in 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.85 0.9 0.95 1.0
 do
     echo $frac
     fname="$(basename $bam)"
