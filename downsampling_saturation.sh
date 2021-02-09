@@ -7,33 +7,32 @@ nb_cores=16
 jobName='downsampling'
 dir_logs=${PWD}/logs
 
-OUT="${PWD}/saturation/bams"
+OUT="${PWD}/saturation/bams_downsampled"
 dir_bam="$PWD/alignments/BAMs_uniq_rmdup"
 
 mkdir -p $OUT
 mkdir -p $dir_logs
 
-
-
-for frac in 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.85 0.9 0.95 1.0
+for bam in `find ${dir_bam} -type f -size +4G`
 do
-    echo $frac
-    fname="$(basename $bam)"
-    fname="${fname%.bam}"
-    fname=${fname/\#/\_}_downsampled.${frac}
-    bam_out=${OUT}/${fname}
-
-    echo $bam_out
     
-    script=${dir_logs}/${fname}_${jobName}.sh	
-    
-    cat <<EOF > $script
+    for frac in 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.85 0.9 0.95 1.0
+    do
+	fname="$(basename $bam)"
+	fname="${fname%.bam}"
+	fname=${fname/\#/\_}_downsampled.${frac}
+	bam_out=${OUT}/${fname}
+	
+	echo $bam_out
+	echo $frac
+	
+	script=${dir_logs}/${fname}_${jobName}.sh	
+cat <<EOF > $script
 #!/usr/bin/bash
 
 #SBATCH --cpus-per-task=$nb_cores
 #SBATCH --time=360
-#SBATCH --mem=64G
-
+#SBATCH --mem=32G
 #SBATCH --ntasks=1
 #SBATCH --nodes=1
 #SBATCH -o ${dir_logs}/${fname}.${jobName}.out
@@ -41,8 +40,13 @@ do
 #SBATCH --job-name $jobName
 
 module load samtools/1.10-foss-2018b;
-
-samtools view -s $frac -@ $nb_cores -b $bam > ${bam_out}_unsorted.bam 
+	
+if [ ${frac} == 1.0 ]; then
+   cp $bam ${bam_out}_unsorted.bam	
+else 
+   samtools view -s $frac -@ $nb_cores -b $bam > ${bam_out}_unsorted.bam 
+fi
+	 
 samtools sort -@ $nb_cores -o ${bam_out}.bam ${bam_out}_unsorted.bam
 samtools index -c -m 14 ${bam_out}.bam;
 rm ${bam_out}_unsorted.bam
@@ -50,10 +54,14 @@ rm ${bam_out}_unsorted.bam
 samtools view -c ${bam_out}.bam > ${bam_out}.bam.counts.txt
 
 EOF
-
-    cat $script;
-    sbatch $script
-    
-    #break
+	
+	
+	#cat $script;
+	sbatch $script
+	
+	#break
    
+    done
+    #break;
+    
 done
