@@ -8,15 +8,15 @@ jobName='downsampling'
 dir_logs=${PWD}/logs
 
 OUT="${PWD}/saturation/bams_downsampled"
-dir_bam="$PWD/alignments/BAMs_uniq_rmdup"
+dir_bam="$PWD/bams_merged"
 
 mkdir -p $OUT
 mkdir -p $dir_logs
 
-for bam in `find ${dir_bam} -type f -size +4G`
+for bam in ${dir_bam}/*.bam
 do
     
-    for frac in 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.85 0.9 0.95 1.0
+    for frac in `seq 0.1 0.05 1.0`
     do
 	fname="$(basename $bam)"
 	fname="${fname%.bam}"
@@ -42,6 +42,7 @@ cat <<EOF > $script
 module load samtools/1.10-foss-2018b;
 	
 if [ ${frac} == 1.0 ]; then
+   
    cp $bam ${bam_out}_unsorted.bam	
 else 
    samtools view -s $frac -@ $nb_cores -b $bam > ${bam_out}_unsorted.bam 

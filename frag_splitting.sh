@@ -45,10 +45,15 @@ do
 module load samtools/1.10-foss-2018b;
 
 samtools view -h $bam | awk '(\$9 <= 100 && \$9 >= -100) || \$1 ~ /^@/' | samtools view -bS > ${bam_out}.sized100.bam
+
 samtools view -h $bam | awk '(\$9>= 180 && \$9<=240) || (\$9<=-180 && \$9>=-240) || \$1 ~ /^@/' | samtools view -bS > ${bam_out}.sized180.240.bam
+
+
+samtools view -h $bam | awk '\$9>= 250 || \$9<=-250 || \$1 ~ /^@/' | samtools view -bS > ${bam_out}.sized250.bam
 
 samtools index -c -m 14 ${bam_out}.sized180.240.bam
 samtools index -c -m 14 ${bam_out}.sized100.bam
+samtools index -c -m 14 ${bam_out}.sized250.bam
 
 
 EOF
