@@ -58,8 +58,8 @@ samtools view -c ${bam_out}.bam > ${bam_out}.bam.counts.txt
 EOF
 	
 	
-	cat $script;
-	#sbatch $script
+	#cat $script;
+	sbatch $script
 	
 	#break
    
