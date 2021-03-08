@@ -3,21 +3,15 @@
 # Here teh gtf files used has all annotation including non-coding regions and miRNAs
 # because we want to counts reads not only for gene features but also biotypes (e.g. protein coding genes and miRNAs)
 ####################
-# only protein coding genes
-#GTF='/groups/cochella/jiwang/annotations/Caenorhabditis_elegans.WBcel235.88_proteinCodingGenes.gtf'
-
 nb_cores=8
 jobName='featurecounts'
 format=bam
 strandSpec=0;
 cutoff_quality=30
-SAF='/groups/tanaka/People/current/jiwang/projects/positional_memory/Data/R10723_atac/calledPeaks_replicates/merge_peak.saf'
-
-#mode="intersection-nonempty"
-#ID_feature="gene_id"
+SAF="/groups/tanaka/People/current/jiwang/projects/positional_memory/Data/R10723_atac/calledPeaks_pval.0.001/merge_peak.saf"
 
 DIR=`pwd`
-DIR_input="${PWD}/alignments/BAMs_uniq_rmdup"
+DIR_input="${PWD}/bams_used"
 DIR_output="${DIR}/featurecounts.Q${cutoff_quality}"
 dir_logs=$PWD/logs
 echo $DIR_input
@@ -57,6 +51,5 @@ EOF
 
     cat $script;  
     sbatch $script
-    #break;
-    
+    #break;    
 done
