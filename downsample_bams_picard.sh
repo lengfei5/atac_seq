@@ -7,8 +7,8 @@ nb_cores=16
 jobName='downsampling'
 dir_logs=${PWD}/logs
 
-OUT="${PWD}/saturation/bams_downsampled_picard"
-dir_bam="$PWD/bams_merged"
+OUT="${PWD}/raw_downsampled_picard"
+dir_bam="$PWD/ngs_raw/BAMs"
 
 mkdir -p $OUT
 mkdir -p $dir_logs
@@ -17,6 +17,7 @@ for bam in ${dir_bam}/*.bam
 do
     
     for frac in `seq 0.1 0.05 1.0`
+    #for frac in 0.004 0.01 0.02 0.04
     do
 	fname="$(basename $bam)"
 	fname="${fname%.bam}"
@@ -46,7 +47,7 @@ if [ ${frac} == 1.0 ]; then
    cp $bam ${bam_out}_unsorted.bam	
 else 
    #samtools view -s $frac -@ $nb_cores -b $bam > ${bam_out}_unsorted.bam
-   picard DownsampleSam I=${bam} O=${bam_out}_unsorted.bam P=${frac}
+   picard DownsampleSam I=${bam} Oq=${bam_out}_unsorted.bam P=${frac}
 fi
 	 
 samtools sort -@ $nb_cores -o ${bam_out}.bam ${bam_out}_unsorted.bam
