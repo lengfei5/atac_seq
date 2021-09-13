@@ -29,7 +29,7 @@ while getopts ":hD:p:" opts; do
         esac
 done
 
-nb_cores=16
+nb_cores=4
 jobName='featurecounts'
 format=bam
 strandSpec=0;
