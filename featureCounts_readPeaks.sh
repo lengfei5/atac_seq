@@ -62,8 +62,8 @@ do
 #!/usr/bin/bash
 
 #SBATCH --cpus-per-task=$nb_cores
-#SBATCH --time=480
-#SBATCH --mem=16G
+#SBATCH --time=60
+#SBATCH --mem=4G
 #SBATCH --ntasks=1
 #SBATCH --nodes=1
 #SBATCH -o ${dir_logs}/$(basename $file).featureCounts.out
