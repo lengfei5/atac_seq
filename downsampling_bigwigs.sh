@@ -3,13 +3,45 @@
 # make BigWig files using container-based deeptools 
 #############################
 
-bam=${PWD}/alignments/BAMs_All/BL_UA_5days_136165_sorted.bam
+while getopts ":hb:" opts; do
+    case "$opts" in
+        "h")
+            echo "script to downsample read count from aligned bam file"
+            echo "one arguments required"
+            echo "-b the bam file to subsample"
+            echo "Usage:"
+            echo "$0 -b bam"
+            exit 0
+            ;;
+        
+        "b")
+            bam="$OPTARG";
+            ;;
+        "?")
+            echo "Unknown option $opts"
+            ;;
+        ":")
+            echo "No argument value for option $opts"
+            ;;
+        esac
+done
+
+# bam=${PWD}/alignments/BAMs_All/BL_UA_5days_136165_sorted.bam
+
+
+if [ -f "$bam" ]; then
+    echo $bam
+else
+    echo 'bam file does not exit !'
+    exit 1
+fi
 
 nb_cores=16
 MAPQ_cutoff=30
 
 OUT="${PWD}/bam_downsampling"
 jobName='downsampling'
+
 dir_logs=${PWD}/logs
 
 mkdir -p $OUT
@@ -26,6 +58,7 @@ do
     bam_out=${OUT}/${fname}
     
     wig=${OUT}/${fname}_mq${MAPQ_cutoff}
+    
     echo $bam_out
     echo $wig
     
