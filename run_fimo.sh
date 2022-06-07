@@ -13,19 +13,18 @@
 ml load meme/5.1.1-foss-2018b-python-3.6.6
 ml load bedtools/2.27.1-foss-2018b
 
-mkdir -p FIMO
+outDir='FIMO_atacPeak_tss'
+mkdir -p $outDir
 
 echo 'sort bed file'
-bedtools sort -i peaks/peaks_for_fimo.bed > FIMO/peaks_for_fimo_sorted.bed
+bedtools sort -i peaks/atacPeaks_tss_for_fimo.bed > ${outDir}/peaks_for_fimo_sorted.bed
 
 echo 'get fasta file '
 bedtools getfasta -fi /groups/tanaka/People/current/jiwang/Genomes/axolotl/AmexG_v6.DD.corrected.round2.chr.fa \
-	 -bed FIMO/peaks_for_fimo_sorted.bed > FIMO/peaks_for_fimo.fa 
+	 -bed ${outDir}/peaks_for_fimo_sorted.bed > ${outDir}/peaks_for_fimo.fa 
 
 echo 'start fimo '
 fimo --thresh 0.0001 \
-     --oc FIMO/fimo_out \
+     --oc ${outDir}/fimo_out \
      /groups/tanaka/People/current/jiwang/Databases/motifs_TFs/JASPAR2022/JASPAR2022_CORE_vertebrates_nonRedundant.meme \
-     FIMO/peaks_for_fimo.fa
-
-
+     ${outDir}/peaks_for_fimo.fa

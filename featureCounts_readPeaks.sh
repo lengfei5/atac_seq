@@ -72,10 +72,9 @@ do
 
 ml load subread/2.0.1-gcc-7.3.0-2.30
 
-featureCounts -F SAF -a ${SAF} -p -Q $cutoff_quality -T $nb_cores \
+featureCounts -F SAF -a ${SAF} -p -Q $cutoff_quality -T $nb_cores -O \
 -o ${DIR_output}/${file_output}_featureCounts.txt \
--s $strandSpec $file; \
--O 
+-s $strandSpec $file ; 
 
 EOF
 
