@@ -1,9 +1,9 @@
 #!/usr/bin/bash
 
-#SBATCH --cpus-per-task=10
-#SBATCH --time=480
-#SBATCH --mem=32G
-
+#SBATCH --cpus-per-task=1
+#SBATCH --time=8:00:00
+#SBATCH --mem=16G
+#SABTCH --qos=short
 #SBATCH --ntasks=1
 #SBATCH --nodes=1
 #SBATCH -o fimo.out
@@ -17,7 +17,7 @@ outDir='FIMO_atacPeak_tss'
 mkdir -p $outDir
 
 echo 'sort bed file'
-bedtools sort -i peaks/atacPeaks_tss_for_fimo.bed > ${outDir}/peaks_for_fimo_sorted.bed
+bedtools sort -i peaks/atacPeaks_2kbtss_for_fimo.bed > ${outDir}/peaks_for_fimo_sorted.bed
 
 echo 'get fasta file '
 bedtools getfasta -fi /groups/tanaka/People/current/jiwang/Genomes/axolotl/AmexG_v6.DD.corrected.round2.chr.fa \
