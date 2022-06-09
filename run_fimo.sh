@@ -1,23 +1,27 @@
 #!/usr/bin/bash
-
 #SBATCH --cpus-per-task=1
-#SBATCH --time=8:00:00
+#SBATCH --time=0-16:00:00
 #SBATCH --mem=16G
-#SABTCH --qos=short
+#SBATCH --qos=medium
+#SBATCH --partition=c
 #SBATCH --ntasks=1
 #SBATCH --nodes=1
-#SBATCH -o fimo.out
-#SBATCH -e fimo.err
+#SBATCH --output=%x_%j.out
+#SBATCH --error=%x_%j.err
 #SBATCH --job-name fimo
 
 ml load meme/5.1.1-foss-2018b-python-3.6.6
 ml load bedtools/2.27.1-foss-2018b
 
-outDir='FIMO_atacPeak_tss'
+pwm='/groups/tanaka/People/current/jiwang/Databases/motifs_TFs/JASPAR2022/JASPAR2022_CORE_UNVALIDED_vertebrates_nonRedundant.meme'
+
+bed='peaks/atacPeaks_2kbtss_for_fimo_v2.bed'
+outDir='FIMO_atacPeak_tss_mediumQ_core.unvalided'
+
 mkdir -p $outDir
 
 echo 'sort bed file'
-bedtools sort -i peaks/atacPeaks_2kbtss_for_fimo.bed > ${outDir}/peaks_for_fimo_sorted.bed
+bedtools sort -i ${bed} > ${outDir}/peaks_for_fimo_sorted.bed
 
 echo 'get fasta file '
 bedtools getfasta -fi /groups/tanaka/People/current/jiwang/Genomes/axolotl/AmexG_v6.DD.corrected.round2.chr.fa \
@@ -26,5 +30,4 @@ bedtools getfasta -fi /groups/tanaka/People/current/jiwang/Genomes/axolotl/AmexG
 echo 'start fimo '
 fimo --thresh 0.0001 \
      --oc ${outDir}/fimo_out \
-     /groups/tanaka/People/current/jiwang/Databases/motifs_TFs/JASPAR2022/JASPAR2022_CORE_vertebrates_nonRedundant.meme \
-     ${outDir}/peaks_for_fimo.fa
+     $pwm ${outDir}/peaks_for_fimo.fa
